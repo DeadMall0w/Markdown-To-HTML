@@ -1,11 +1,13 @@
 # C'est quoi ?
-Ce document, à pour but d'être un exemple pour mon script qui convertit le markdown en html !! C'est pas incroyable ca ???
+Ce document, à pour but d'être un exemple pour mon script qui convertit le markdown en html !! **C'est pas incroyable ca ???**
+*C'est en italique nan ????*
 
-[[Lien autres docs]]
-[[Lien doc inexistant]]
+# Lien
+[[Lien autres docs]] Puis [[Lien autres docs]] et ensuite [[Lien autres docs]]
+Ce lien n'existe pas, il devrait etre rouge !! [[Lien doc inexistant]] et oui
 
 
-# Embed
+## Embed
 ![[test1]]
 
 ![[Test numéro 27]]
@@ -41,3 +43,10 @@ $3x^{4}\times \sin x + e^{ 19 }$
 > [!bug]
 > Ceci est une liste de tous les bugs présent
 
+# Test des autres Headers
+# Header 1
+## Header 2
+### Header 3
+#### Header 4
+##### Header 5
+###### Header 6
