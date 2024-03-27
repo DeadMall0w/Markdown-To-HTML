@@ -26,8 +26,10 @@ def convert_links(lines):
     links = lines.split('[[')
     if len(links) > 1:
         new_lines = links[0]
-    # return f"""<a href="{link}" >{link}</a>"""
-        print(new_lines)
+        for i in range(1, len(links)):
+            splited = links[i].split("]]")
+            new_lines += f"""<a href="{splited[0]}"> {splited[0]}</a>""" + splited[1]
+        lines = new_lines
     return lines
 # Fonction pour convertir un paragraphe Markdown en balise HTML
 def convert_paragraph(line):
