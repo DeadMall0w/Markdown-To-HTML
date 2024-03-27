@@ -1,10 +1,11 @@
 import helper
+import os
 
 source_directory = "E:/git/Markdown-To-HTML/Source"
 destination_directory = "E:/git/Markdown-To-HTML/Output"
 
-enable_print = True
-enable_all_print = True
+enable_print = False
+enable_all_print = False
 
 # Affiche les informations principales dans la console
 def c_print(input):
@@ -182,20 +183,21 @@ def generate_css():
 </style>"""
 
 def save_html_file(html_content, path):
-    c_print(f"Saving... '{path}'")
+    a_print(f"Saving... '{path}'")
     with open(path, "w", encoding="utf-8") as html_file:
         html_file.write(html_content)
-    c_print(f"Saved as '{path}'!")
+    a_print(f"Saved as '{path}'!")
 
 def read_md_file(filename):
-    c_print(f"Reading... '{filename}'")
+    a_print(f"Reading... '{filename}'")
     with open(filename, "r", encoding="utf-8") as md_file:
         md_content = md_file.readlines()
-    c_print(f"Read '{filename}'!")
+    a_print(f"Read '{filename}'!")
     return md_content
 
 # Fonction principale pour générer le document HTML complet
-def generate_html_document(file_name):
+def generate_html_document(file_name, save_folder):
+    a_print(f"Generating HTML document... '{file_name}'")
     c_print(f"Generating HTML document... '{file_name}'")
     md_content = read_md_file(file_name)
     html_content = convert_markdown_to_html(md_content)
@@ -215,8 +217,31 @@ def generate_html_document(file_name):
 {html_content}
 </body>
 </html>"""
-    save_html_file(html_document, destination_directory + "/" + helper.get_file_name(file_name) + ".html")
+    # print("Location : " + file_name.split("Source")[)
+    save_html_file(html_document, os.path.join(destination_directory, save_folder) + "/" + helper.get_file_name(file_name) + ".html")
+    c_print(f"/Finished HTML document '{file_name}'")
+
+def generate_html_all_files():
+    for file in os.listdir(source_directory):
+        if file.endswith(".md"):
+            generate_html_document(source_directory + "/" + file)
 
 
-generate_html_document("E:\git\Markdown-To-HTML\Source\Hello World !.md")
-generate_html_document("E:\git\Markdown-To-HTML\Source\Lien autres docs.md")
+def parcourir_dossier(dossier, relative_path):
+    # print(relative_path)
+    for element in os.listdir(dossier):
+        chemin = os.path.join(dossier, element)
+        if os.path.isfile(chemin):
+            if chemin.endswith(".md"):
+                generate_html_document(chemin, relative_path)
+        elif os.path.isdir(chemin):
+            # print(os.path.join(destination_directory, os.path.join(relative_path, element)))
+            folder_path = os.path.join(destination_directory, os.path.join(relative_path, element))
+            if not os.path.exists(folder_path):
+                os.makedirs(folder_path)
+            parcourir_dossier(chemin, os.path.join(relative_path, element))
+
+parcourir_dossier(source_directory, "")
+# generate_html_all_files()
+# generate_html_document("E:\git\Markdown-To-HTML\Source\Hello World !.md")
+# generate_html_document("E:\git\Markdown-To-HTML\Source\Lien autres docs.md")
