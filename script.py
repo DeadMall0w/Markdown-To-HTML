@@ -7,7 +7,7 @@ enable_print = True
 enable_all_print = True
 
 # Affiche les informations principales dans la console
-def c_print(input): 
+def c_print(input):
     if enable_print:
         print(input)
 
@@ -21,12 +21,14 @@ def convert_header(line):
     level = 0
     while line[level] == '#':
         level += 1
+    a_print(f"Header : {level}, Content : {line[level+1:].strip()}")
     return f"<h{level}>{line[level+1:].strip()}</h{level}>"
 
 # Fonction pour convertir une liste Markdown en balise HTML
 def convert_list(line):
     if line.startswith("- "):
         return f"<li>{line[2:].strip()}</li>"
+    a_print(f"Liste : {line[2:].strip()}")
     return line
 
 def apply_text_formatting(line):
@@ -48,8 +50,10 @@ def convert_links(line):
         for i in range(1, len(links)):
             splited = links[i].split("]]")
             if helper.file_exists_in_directory(splited[0] + ".md", source_directory):
+                a_print(f"Link : {splited[0]} not found.")
                 new_line += f"""<a href="{splited[0]}"> {splited[0]}</a>""" + splited[1]
             else: 
+                a_print(f"Link : {splited[0]} not found.")
                 new_line += f"""<b>{splited[0]}</b>""" + splited[1]
         line = new_line
     return line
@@ -71,6 +75,7 @@ def convert_paragraph(line):
     line = apply_text_formatting(line)
     line = convert_links(line)
     line = apply_LaTeX(line)
+    a_print(f"Paragraphe : {line.strip()}")
     return f"<p>{line.strip()}</p>"
 
 # Fonction principale pour convertir le Markdown en HTML
@@ -171,21 +176,21 @@ def generate_css():
 </style>"""
 
 def save_html_file(html_content, path):
-    print(f"Saving {path}")
+    c_print(f"Saving {path}")
     with open(path, "w", encoding="utf-8") as html_file:
         html_file.write(html_content)
-    print(f"Saved as {path}!")
+    c_print(f"Saved as {path}!")
 
 def read_md_file(filename):
-    print(f"Reading...{filename}")
+    c_print(f"Reading...{filename}")
     with open(filename, "r", encoding="utf-8") as md_file:
         md_content = md_file.readlines()
-    print(f"Read {filename}!")
+    c_print(f"Read {filename}!")
     return md_content
 
 # Fonction principale pour générer le document HTML complet
 def generate_html_document(file_name):
-    print(f"Generating HTML document... {file_name}")
+    c_print(f"Generating HTML document... {file_name}")
     md_content = read_md_file(file_name)
     html_content = convert_markdown_to_html(md_content)
     css_content = generate_css()
