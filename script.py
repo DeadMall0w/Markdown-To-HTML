@@ -50,8 +50,8 @@ def convert_links(line):
         for i in range(1, len(links)):
             splited = links[i].split("]]")
             if helper.file_exists_in_directory(splited[0] + ".md", source_directory):
-                a_print(f"Link : {splited[0]} not found.")
-                new_line += f"""<a href="{splited[0]}"> {splited[0]}</a>""" + splited[1]
+                a_print(f"Link : {splited[0]} found.")
+                new_line += f"""<a href="{splited[0]}.html"> {splited[0]}</a>""" + splited[1]
             else: 
                 a_print(f"Link : {splited[0]} not found.")
                 new_line += f"""<b>{splited[0]}</b>""" + splited[1]
@@ -67,6 +67,7 @@ def apply_LaTeX(line):
                 new_line += "\\(" + lines[i]
             else:
                 new_line += lines[i] + "\\)"
+                a_print(f"LaTeX : {lines[i]}")
         line = new_line
     return line
 
@@ -176,21 +177,21 @@ def generate_css():
 </style>"""
 
 def save_html_file(html_content, path):
-    c_print(f"Saving {path}")
+    c_print(f"Saving... '{path}'")
     with open(path, "w", encoding="utf-8") as html_file:
         html_file.write(html_content)
-    c_print(f"Saved as {path}!")
+    c_print(f"Saved as '{path}'!")
 
 def read_md_file(filename):
-    c_print(f"Reading...{filename}")
+    c_print(f"Reading... '{filename}'")
     with open(filename, "r", encoding="utf-8") as md_file:
         md_content = md_file.readlines()
-    c_print(f"Read {filename}!")
+    c_print(f"Read '{filename}'!")
     return md_content
 
 # Fonction principale pour générer le document HTML complet
 def generate_html_document(file_name):
-    c_print(f"Generating HTML document... {file_name}")
+    c_print(f"Generating HTML document... '{file_name}'")
     md_content = read_md_file(file_name)
     html_content = convert_markdown_to_html(md_content)
     css_content = generate_css()
