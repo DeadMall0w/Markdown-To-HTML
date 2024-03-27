@@ -1,6 +1,21 @@
 import helper
 
-directory = "E:\git\Markdown-To-HTML\Source"
+source_directory = "E:\git\Markdown-To-HTML\Source"
+destination_directory = "E:\git\Markdown-To-HTML\Output"
+
+enable_print = True
+enable_all_print = True
+
+# Affiche les informations principales dans la console
+def c_print(input): 
+    if enable_print:
+        print(input)
+
+# Affiche toutes les informations dans la console
+def a_print(input): 
+    if enable_all_print:
+        print(input)
+
 # Fonction pour convertir un titre Markdown en balise HTML
 def convert_header(line):
     level = 0
@@ -155,15 +170,30 @@ def generate_css():
         }
 </style>"""
 
+def save_html_file(html_content, filename):
+    print(f"Saving {filename}")
+    with open(filename, "w", encoding="utf-8") as html_file:
+        html_file.write(html_content)
+    print(f"Saved as {filename}!")
+
+def read_md_file(filename):
+    print(f"Reading...{filename}")
+    with open(filename, "r", encoding="utf-8") as md_file:
+        md_content = md_file.readlines()
+    print(f"Read {filename}!")
+    return md_content
+
 # Fonction principale pour générer le document HTML complet
-def generate_html_document(markdown_lines):
-    html_content = convert_markdown_to_html(markdown_lines)
+def generate_html_document(file_name):
+    print(f"Generating HTML document... {file_name}")
+    md_content = read_md_file(file_name)
+    html_content = convert_markdown_to_html(md_content)
     css_content = generate_css()
     html_document = f"""<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Markdown to HTML</title>
+<title>{file_name}/title>
 {css_content}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
@@ -173,19 +203,7 @@ def generate_html_document(markdown_lines):
 {html_content}
 </body>
 </html>"""
-    return html_document
+    save_html_file(html_document, file_name)
 
-def save_html_file(html_content, filename):
-    with open(filename, "w", encoding="utf-8") as html_file:
-        html_file.write(html_content)
 
-def read_md_file(filename):
-    with open(filename, "r", encoding="utf-8") as md_file:
-        md_content = md_file.readlines()
-    return md_content
-
-# Exemple d'utilisation
-markdown_filename = "Source/Hello World !.md"  # Nom du fichier Markdown
-markdown_lines = read_md_file(markdown_filename)
-html_document = generate_html_document(markdown_lines)
-save_html_file(html_document, "output.html")
+generate_html_document("E:\git\Markdown-To-HTML\Source\Hello World !.md")
