@@ -26,23 +26,30 @@ def apply_text_formatting(line):
     return line
 
 # Fonction pour convertir les liens en Markdown en balise HTML
-def convert_links(lines):
-    links = lines.split('[[')
+def convert_links(line):
+    links = line.split('[[')
     if len(links) > 1:
-        new_lines = links[0]
+        new_line = links[0]
         for i in range(1, len(links)):
             splited = links[i].split("]]")
             if helper.file_exists_in_directory(splited[0] + ".md", directory):
-                new_lines += f"""<a href="{splited[0]}"> {splited[0]}</a>""" + splited[1]
+                new_line += f"""<a href="{splited[0]}"> {splited[0]}</a>""" + splited[1]
             else: 
-                new_lines += f"""<b>{splited[0]}</b>""" + splited[1]
-        lines = new_lines
-    return lines
+                new_line += f"""<b>{splited[0]}</b>""" + splited[1]
+        line = new_line
+    return line
+
+def apply_LaTeX(line):
+    lines = line.split("$")
+    if len(lines) > 1:
+        print(line.split("$"))
+    return line
 
 # Fonction pour convertir un paragraphe Markdown en balise HTML
 def convert_paragraph(line):
     line = apply_text_formatting(line)
     line = convert_links(line)
+    line = apply_LaTeX(line)
     return f"<p>{line.strip()}</p>"
 
 # Fonction principale pour convertir le Markdown en HTML
