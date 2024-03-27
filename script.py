@@ -42,7 +42,13 @@ def convert_links(line):
 def apply_LaTeX(line):
     lines = line.split("$")
     if len(lines) > 1:
-        print(line.split("$"))
+        new_line = lines[0]
+        for i in range(0, len(lines)-len(lines)%2):
+            if i % 2 == 0:
+                new_line += "\\(" + lines[i]
+            else:
+                new_line += lines[i] + "\\)"
+        line = new_line
     return line
 
 # Fonction pour convertir un paragraphe Markdown en balise HTML
@@ -159,6 +165,9 @@ def generate_html_document(markdown_lines):
 <meta charset="UTF-8">
 <title>Markdown to HTML</title>
 {css_content}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
 </head>
 <body>
 {html_content}
@@ -166,7 +175,6 @@ def generate_html_document(markdown_lines):
 </html>"""
     return html_document
 
-# Exemple d'utilisation
 def save_html_file(html_content, filename):
     with open(filename, "w", encoding="utf-8") as html_file:
         html_file.write(html_content)
