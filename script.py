@@ -174,6 +174,11 @@ def generate_css():
             color: rgb(234, 152, 255);
             font-style: italic;
         }
+
+        #Title {
+            text-align: center;
+            font-size: 50px;
+        }
 </style>"""
 
 def save_html_file(html_content, path):
@@ -206,6 +211,7 @@ def generate_html_document(file_name):
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
 </head>
 <body>
+<h1 id="Title">{helper.get_file_name(file_name)}</h1>
 {html_content}
 </body>
 </html>"""
@@ -213,3 +219,4 @@ def generate_html_document(file_name):
 
 
 generate_html_document("E:\git\Markdown-To-HTML\Source\Hello World !.md")
+generate_html_document("E:\git\Markdown-To-HTML\Source\Lien autres docs.md")
