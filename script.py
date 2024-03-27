@@ -1,7 +1,7 @@
 import helper
 
-source_directory = "E:\git\Markdown-To-HTML\Source"
-destination_directory = "E:\git\Markdown-To-HTML\Output"
+source_directory = "E:/git/Markdown-To-HTML/Source"
+destination_directory = "E:/git/Markdown-To-HTML/Output"
 
 enable_print = True
 enable_all_print = True
@@ -47,7 +47,7 @@ def convert_links(line):
         new_line = links[0]
         for i in range(1, len(links)):
             splited = links[i].split("]]")
-            if helper.file_exists_in_directory(splited[0] + ".md", directory):
+            if helper.file_exists_in_directory(splited[0] + ".md", source_directory):
                 new_line += f"""<a href="{splited[0]}"> {splited[0]}</a>""" + splited[1]
             else: 
                 new_line += f"""<b>{splited[0]}</b>""" + splited[1]
@@ -170,11 +170,11 @@ def generate_css():
         }
 </style>"""
 
-def save_html_file(html_content, filename):
-    print(f"Saving {filename}")
-    with open(filename, "w", encoding="utf-8") as html_file:
+def save_html_file(html_content, path):
+    print(f"Saving {path}")
+    with open(path, "w", encoding="utf-8") as html_file:
         html_file.write(html_content)
-    print(f"Saved as {filename}!")
+    print(f"Saved as {path}!")
 
 def read_md_file(filename):
     print(f"Reading...{filename}")
@@ -193,7 +193,7 @@ def generate_html_document(file_name):
 <html>
 <head>
 <meta charset="UTF-8">
-<title>{file_name}/title>
+<title>{helper.get_file_name(file_name)}</title>
 {css_content}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
@@ -203,7 +203,7 @@ def generate_html_document(file_name):
 {html_content}
 </body>
 </html>"""
-    save_html_file(html_document, file_name)
+    save_html_file(html_document, destination_directory + "/" + helper.get_file_name(file_name) + ".html")
 
 
 generate_html_document("E:\git\Markdown-To-HTML\Source\Hello World !.md")
