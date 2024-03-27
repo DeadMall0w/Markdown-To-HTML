@@ -142,6 +142,11 @@ def generate_css():
             font-size: 16px;
             line-height: 0.75;
         }
+
+        a {
+            color: rgb(234, 152, 255);
+            font-style: italic;
+        }
 </style>"""
 
 # Fonction principale pour générer le document HTML complet
