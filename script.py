@@ -217,7 +217,6 @@ def generate_html_document(file_name, save_folder):
 {html_content}
 </body>
 </html>"""
-    # print("Location : " + file_name.split("Source")[)
     save_html_file(html_document, os.path.join(destination_directory, save_folder) + "/" + helper.get_file_name(file_name) + ".html")
     c_print(f"/Finished HTML document '{file_name}'")
 
@@ -228,20 +227,15 @@ def generate_html_all_files():
 
 
 def parcourir_dossier(dossier, relative_path):
-    # print(relative_path)
     for element in os.listdir(dossier):
         chemin = os.path.join(dossier, element)
         if os.path.isfile(chemin):
             if chemin.endswith(".md"):
                 generate_html_document(chemin, relative_path)
         elif os.path.isdir(chemin):
-            # print(os.path.join(destination_directory, os.path.join(relative_path, element)))
             folder_path = os.path.join(destination_directory, os.path.join(relative_path, element))
             if not os.path.exists(folder_path):
                 os.makedirs(folder_path)
             parcourir_dossier(chemin, os.path.join(relative_path, element))
 
 parcourir_dossier(source_directory, "")
-# generate_html_all_files()
-# generate_html_document("E:\git\Markdown-To-HTML\Source\Hello World !.md")
-# generate_html_document("E:\git\Markdown-To-HTML\Source\Lien autres docs.md")
