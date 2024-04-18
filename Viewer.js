@@ -11,8 +11,12 @@ function fetchMarkdownFiles(filename) {
             // Convert Markdown to HTML
             const htmlOutput = formatMarkdownToHTML(markdownText);
             
+            markdown_content = document.getElementById('markdownContent');
+            
             // Display the HTML output
-            document.getElementById('markdownContent').innerHTML = htmlOutput;
+            markdown_content.innerHTML = htmlOutput;
+        
+            renderMathInElement(markdown_content);
         })
         .catch(error => {
             console.error('There was a problem fetching the Markdown file:', error);
