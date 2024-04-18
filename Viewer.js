@@ -25,12 +25,31 @@ function formatHeader(line){
         i+=1;
     }
     console.log(i);
-    return `<h${i}>${line.slice(1)}</h${i}>`;
+    return `<h${i}>${line.slice(i)}</h${i}>`;
 }
 
-// Function to convert Markdown to HTML
-function formatMarkdownToHTML(text) {
-    const lines = text.split('\n');
+
+function formatMarkdownToHTML(markdownText){
+    htmlText = detectMarkdownExpression(markdownText);
+    htmlText = formatSpace(htmlText);
+    return htmlText;
+}
+
+function detectMarkdownExpression(markdownText){
+    return markdownText
+        .replace(/\n/g, '<br>') // Replace line breaks with <br> tags
+        // You can add more basic Markdown-to-HTML conversion rules here as needed
+        // For example, convert bold text:
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        // Convert italic text:
+        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+        .replace(/\$\$(.*?)\$\$/g, '<p>\\[$1\\]</p>')
+        .replace(/\$(.*?)\$/g, (match, p1) => `<p>\\(${p1}\\)</p>`); // Single-line equations
+}
+
+// Function to format space, create <p> for text, <h1> for title, ect...
+function formatSpace(text) {
+    const lines = text.split('<br>');
     
     let htmlOutput = '';
 
