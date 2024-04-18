@@ -24,14 +24,15 @@ function formatHeader(line){
     while (line[i] == "#"){
         i+=1;
     }
-    console.log(i);
     return `<h${i}>${line.slice(i)}</h${i}>`;
 }
 
 
 function formatMarkdownToHTML(markdownText){
     htmlText = detectMarkdownExpression(markdownText);
+    console.log(htmlText);
     htmlText = formatSpace(htmlText);
+    //htmlText +=
     return htmlText;
 }
 
@@ -45,6 +46,10 @@ function detectMarkdownExpression(markdownText){
         .replace(/\*(.*?)\*/g, '<em>$1</em>')
         .replace(/\$\$(.*?)\$\$/g, '<p>\\[$1\\]</p>')
         .replace(/\$(.*?)\$/g, (match, p1) => `<p>\\(${p1}\\)</p>`); // Single-line equations
+        // Convert single-line equations enclosed by $...$
+        //.replace(/\$(.*?)\$/g, '<p class="myLatex">\\($1\\)</p>')
+        // Convert multi-line equations enclosed by $$...$$
+        //.replace(/\$\$(.*?)\$\$/g, '<p class="myLatex">\\[$1\\]</p>');
 }
 
 // Function to format space, create <p> for text, <h1> for title, ect...
