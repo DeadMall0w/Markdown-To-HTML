@@ -9,7 +9,7 @@ function fetchMarkdownFiles(filename) {
         })
         .then(markdownText => {
             // Convert Markdown to HTML
-            const htmlOutput = formatMarkdownToHTML(markdownText);
+            const htmlOutput = formatMarkdownToHTML(markdownText, filename);
             
             markdown_content = document.getElementById('markdownContent');
             
@@ -32,8 +32,9 @@ function formatHeader(line){
 }
 
 
-function formatMarkdownToHTML(markdownText){
-    htmlText = detectMarkdownExpression(markdownText);
+function formatMarkdownToHTML(markdownText, title){
+    htmlText = `<h1 id="Title">${title.slice(0, -3)}</h1><br>`;
+    htmlText += detectMarkdownExpression(markdownText);
     console.log(htmlText);
     htmlText = formatSpace(htmlText);
     //htmlText +=
@@ -63,6 +64,7 @@ function formatSpace(text) {
     let htmlOutput = '';
 
     for (const line of lines) {
+        console.log(line);
         if (line.startsWith('#')) {
             htmlOutput += formatHeader(line);
         } else if (line.trim() !== '') {
