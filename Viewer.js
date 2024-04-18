@@ -49,7 +49,7 @@ function detectMarkdownExpression(markdownText){
         // Convert italic text:
         .replace(/\*(.*?)\*/g, '<em>$1</em>')
         .replace(/\$\$(.*?)\$\$/g, '<p>\\[$1\\]</p>')
-        .replace(/\$(.*?)\$/g, (match, p1) => `<p>\\(${p1}\\)</p>`); // Single-line equations
+        .replace(/\$(.*?)\$/g, (match, p1) => `\\(${p1}\\)`); // Single-line equations
         // Convert single-line equations enclosed by $...$
         //.replace(/\$(.*?)\$/g, '<p class="myLatex">\\($1\\)</p>')
         // Convert multi-line equations enclosed by $$...$$
