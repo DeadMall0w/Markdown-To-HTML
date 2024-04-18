@@ -59,7 +59,6 @@ p {
     margin-left: 20px;
     margin-bottom: 0px;
     margin-top: 5px;
-
 }
 
 ul {
@@ -76,6 +75,11 @@ li {
 a {
     color: rgb(234, 152, 255);
     font-style: italic;
+}
+
+pre {
+    white-space: pre-wrap;
+    tab-size: 4;
 }
 
 #Title {
