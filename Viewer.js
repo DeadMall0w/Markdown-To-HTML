@@ -1,6 +1,6 @@
 // Function to fetch and display Markdown content
-function fetchAndDisplayMarkdown(filename) {
-    fetch(`${filename}`)
+function fetchMarkdownFiles(filename) {
+    fetch(`Source/${filename}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -27,4 +27,4 @@ function convertMarkdownToHTML(markdownText) {
 }
 
 // Initial load
-fetchAndDisplayMarkdown('Hello World!.md'); // Load a default Markdown file
+fetchMarkdownFiles('Hello World !.md'); // Load a default Markdown file
