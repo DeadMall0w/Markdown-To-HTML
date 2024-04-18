@@ -18,6 +18,7 @@ function fetchMarkdownFiles(filename) {
         
             renderMathInElement(markdown_content);
 
+            hljs.highlightAll();
             document.title = filename.slice(0, -3);
 
         })
@@ -75,40 +76,54 @@ function formatSpace(text) {
     
     let htmlOutput = '';
 
-    let last = 0; // Variable pour suivre le dernier type de ligne traitée (0: autre, 1: paragraphe)
+    let currentSection = 0; // Variable pour suivre le dernier type de ligne traitée (0: autre, 1: paragraphe, 2:list, 3:code bloc)
 
     for (const line of lines) {
-
-        if (line.startsWith('#')) { //* Title 
-            htmlOutput += closeParagraph(last);  //* Close section according to last section
+        if (currentSection == 3){
+            if (line.startsWith('```')){
+                currentSection = 0; //* end of code block
+                console.log("End of code block: " + line)
+                htmlOutput += `</pre></code>`
+            }else{
+                htmlOutput += line;
+            }
+        }
+        else if (line.startsWith('#')) { //* Title 
+            htmlOutput += closeParagraph(currentSection);  //* Close section according to last section
             htmlOutput += formatHeader(line); //* Create header lvl
-            last = 0; //* Set last section to title
+            currentSection = 0; //* Set current section to title
+
+        }else if(line.startsWith('```')){
+            console.log(line);
+            currentSection = 3; //* Set current section to code bloc
+            htmlOutput += `<pre><code class="language-${line.slice(3)}">`;
+
 
         }else if (line.startsWith('- ')) {
-            if (last == 2) { //* It's already a list section
+            if (currentSection == 2) { //* It's already a list section
                 htmlOutput += `<li>${line.slice(2)}</li>`;//* Add the line and add <br>
             } else { //* Create a new text section
-                htmlOutput += closeParagraph(last);  //* Close section according to last section
+                htmlOutput += closeParagraph(currentSection);  //* Close section according to last section
                 htmlOutput += `<ul><li>${line.slice(2)}</li>`;
             }
-            last = 2; //* Set the last section to text 
+            currentSection = 2; //* Set the current section to text 
 
         } else if (line.trim() !== '') { //* It's a <p>
-            if (last == 1) { //* It's already a text section
+            if (currentSection == 1) { //* It's already a text section
                 htmlOutput += `${line}<br>`;//* Add the line and add <br>
             } else { //* Create a new text section
-                htmlOutput += closeParagraph(last);  //* Close section according to last section
+                htmlOutput += closeParagraph(currentSection);  //* Close section according to last section
                 htmlOutput += `<p>${line}`;
             }
-            last = 1; //* Set the last section to text
+            currentSection = 1; //* Set the current section to text
         } else if (line.trim() == '') {
-            last = 0;
+            currentSection = 0;
         } else {
             htmlOutput += line;
         }
     }
 
-    if (last == 1) {
+    if (currentSection == 1) {
         htmlOutput += "</p>";
     }
     return htmlOutput;

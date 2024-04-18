@@ -29,7 +29,9 @@ Ce lien n'existe pas, il devrait etre rouge !! [[Lien doc inexistant]] et oui
 ### Header 3
 ```python
 def main(args):
-	print("Hello, world !")
+	print("Hello, world!")
+	if args[0] == "Raphaël":
+		print("Bonjour RAF !")
 ```
 #### Header 4
 > Note 
