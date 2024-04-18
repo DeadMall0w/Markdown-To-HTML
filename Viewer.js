@@ -1,4 +1,3 @@
-// Function to fetch and display Markdown content
 function fetchMarkdownFiles(filename) {
     fetch(`Source/${filename}`)
         .then(response => {
@@ -19,10 +18,27 @@ function fetchMarkdownFiles(filename) {
         });
 }
 
-// Function to convert Markdown to HTML (same as previous example)
+// Function to convert Markdown to HTML
 function convertMarkdownToHTML(markdownText) {
-    let htmlText = markdownText;
-    // Add conversion rules here if needed
+    // Convert Markdown to HTML (basic implementation)
+    // Replace line breaks with <br> tags
+    const htmlText = markdownText
+        .replace(/\n/g, '<br>') // Replace line breaks with <br> tags
+        // You can add more basic Markdown-to-HTML conversion rules here as needed
+        // For example, convert bold text:
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        // Convert italic text:
+        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+        .replace(/\$\$(.*?)\$\$/g, '<p>\\[$1\\]</p>')
+        .replace(/\$(.*?)\$/g, (match, p1) => `<p>\\(${p1}\\)</p>`); // Single-line equations
+
+    // Convert headers (assuming # for h1, ## for h2, etc.)
+    //htmlText = htmlText.replace(/^#\s(.*?)$/gm, '<h1>$1</h1>');
+    //htmlText = htmlText.replace(/^##\s(.*?)$/gm, '<h2>$1</h2>');
+    //htmlText = htmlText.replace(/^###\s(.*?)$/gm, '<h3>$1</h3>');
+    //htmlText = htmlText.replace(/^####\s(.*?)$/gm, '<h4>$1</h4>');
+    //htmlText = htmlText.replace(/^#####\s(.*?)$/gm, '<h5>$1</h5>');
+    //htmlText = htmlText.replace(/^######\s(.*?)$/gm, '<h6>$1</h6>');
     return htmlText;
 }
 

@@ -35,7 +35,7 @@ def main(args):
 > Note 
 > Ceci est une note 
 ##### Header 5
-$3x^{4}\times \sin x + e^{ 19 }$
+$$3x^{4}\times \sin x + e^{ 19 }$$
 $f(x) = \dfrac{\cos x}{\sin x}$
 $\dfrac{a}{n+1}x^{n+1} + C$
 ###### Header 6
