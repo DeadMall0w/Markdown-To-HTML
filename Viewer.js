@@ -10,7 +10,7 @@ function fetchMarkdownFiles(filename) {
         .then(markdownText => {
             // Convert Markdown to HTML
             const htmlOutput = formatMarkdownToHTML(markdownText, filename);
-            
+            console.log(htmlOutput);
             markdown_content = document.getElementById('markdownContent');
             
             // Display the HTML output
@@ -81,7 +81,8 @@ function formatSpace(text) {
                 console.log("End of code block: " + line)
                 htmlOutput += `</pre></code>`
             }else{
-                htmlOutput += line;
+                htmlOutput += line+"<br>";
+                console.log(line+"<br>");
             }
         }
         else if (line.startsWith('#')) { //* Title 
