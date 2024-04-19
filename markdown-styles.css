@@ -87,6 +87,10 @@ pre {
     word-break: keep-all;
 }
 
+.test {
+    color: red;
+}
+
 #Title {
     text-align: center;
     font-size: 50px;
