@@ -13,16 +13,44 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 </head>
 <body>
-    <div id="file-explorer">
-        <h2>Explorer</h2>
-        <!-- Contenu généré par JS -->
-    </div>
-    <div id="markdownContent">
-        <!-- markdown will be added here -->
-    </div>
-    <div id="table-of-contents">
-        <h2>Table of Contents</h2>
-        <!-- Contenu généré par JS -->
+    <div id="container">
+        <div id="fileExplorer">
+            <h2>Explorer</h2>
+            <!-- Contenu généré par JS -->
+            <ul>
+                <li>Dossier
+                    <ul>
+                        <li>Dossier1
+                            <ul>
+                                <li >fichier1.md</li>
+                                <li >fichier2.md</li>
+                            </ul>
+                        </li>
+                        <li>Dossier2
+                            <ul>
+                                <li >fichier3.md</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div id="markdownContent">
+            <!-- markdown will be added here -->
+        </div>
+        <div id="tableOfContents">
+            <h2>Table of Contents</h2>
+            <!-- Contenu généré par JS -->
+            <ul>
+                <li>Introduction</li>
+                <li>Section 1
+                    <ul>
+                        <li>Sous-section 1.1</li>
+                    </ul>
+                </li>
+                <li>Section 2</li>
+            </ul>
+        </div>
     </div>
     <!--<div class="test">Bonjour <br> coucouc ... ! <br> test </div>-->
     <script src="Viewer.js"></script>
