@@ -128,3 +128,77 @@ function formatSpace(text) {
 
 // Initial load
 fetchMarkdownFiles('Hello World !.md'); // Load a default Markdown file
+
+// Explorer section
+document.addEventListener('DOMContentLoaded', () => {
+    fetch('files_parsed.txt')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.text();
+        })
+        .then(data => {
+            const filePaths = data.split('\n').filter(path => path.trim() !== '');
+            const sortedPaths = filePaths.sort();
+            const fileTree = buildFileTree(sortedPaths);
+            const explorerList = document.getElementById('fileExplorer');
+            renderFileTree(fileTree, explorerList);
+        })
+        .catch(error => console.error('Error loading file paths:', error));
+});
+
+function buildFileTree(paths) {
+    const tree = {};
+
+    paths.forEach(path => {
+        const parts = path.split('/');
+        let currentLevel = tree;
+
+        parts.forEach(part => {
+            if (!currentLevel[part]) {
+                currentLevel[part] = {};
+            }
+            currentLevel = currentLevel[part];
+        });
+    });
+    return tree;
+}
+
+function buildPath(tree, key) {
+    let path = key;
+    let parent = tree;
+    while (parent) {
+        const parentKey = Object.keys(parent)[0]; // Obtenir le parent de la clé actuelle
+        if (parentKey) {
+            path = `${parentKey}/${path}`; // Construire le chemin complet avec le parent
+            parent = parent[parentKey];
+        } else {
+            parent = null;
+        }
+    }
+    return path;
+}
+
+function renderFileTree(tree, parentElement, currentPath = '') {
+    if (!parentElement) {
+        console.error('Parent element is null');
+        return;
+    }
+
+    Object.keys(tree).forEach(key => {
+        const li = document.createElement('li');
+        li.textContent = key;
+
+        if (Object.keys(tree[key]).length > 0) {
+            const ul = document.createElement('ul');
+            renderFileTree(tree[key], ul, `${currentPath}${key}/`);
+            li.appendChild(ul);
+        } else {
+            const filePath = `${currentPath}${key}`; // Construire le chemin complet du fichier
+            li.onclick = () => fetchMarkdownFiles(filePath);
+        }
+
+        parentElement.appendChild(li);
+    });
+}
