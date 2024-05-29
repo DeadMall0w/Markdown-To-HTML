@@ -53,27 +53,27 @@ function formatMarkdownToHTML(markdownText, title){
 
 const notePaths = {};
 
-        function loadNotePaths() {
-            fetch('files_parsed.txt')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok ' + response.statusText);
-                    }
-                    return response.text();
-                })
-                .then(data => {
-                    const lines = data.split('\n');
-                    lines.forEach(line => {
-                        if (line.trim()) {
-                            const parts = line.split('/');
-                            const noteName = parts[parts.length - 1].replace('.md', '').trim();
-                            notePaths[noteName] = line.trim();
-                        }
-                    });
-                    console.log(notePaths); // Debugging purpose
-                })
-                .catch(error => console.error('Error loading note paths:', error));
-        }
+function loadNotePaths() {
+    fetch('files_parsed.txt')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.text();
+        })
+        .then(data => {
+            const lines = data.split('\n');
+            lines.forEach(line => {
+                if (line.trim()) {
+                    const parts = line.split('/');
+                    const noteName = parts[parts.length - 1].replace('.md', '').trim();
+                    notePaths[noteName] = line.trim();
+                }
+            });
+            console.log(notePaths); // Debugging purpose
+        })
+        .catch(error => console.error('Error loading note paths:', error));
+}
 
 function detectMarkdownExpression(markdownText){
     return markdownText
@@ -249,10 +249,10 @@ function renderFileTree(tree, parentElement, currentPath = '') {
 //Table of contents
 function generateTableOfContents(content) {
     const tocContainer = document.getElementById('tableOfContents'); // Assurez-vous d'avoir un conteneur avec cet ID dans votre HTML
-    let tocHTML = '<ul>';
+    let tocHTML = '<h2>Table of Contents</h2><ul>';
 
     TOCList.forEach(item => {
-        tocHTML += `<li class="toc-level-${item.level}"><a href="#${item.id}">${item.text}</a></li>`;
+        tocHTML += `<li class="TOCElement toc-level-${item.level}"><a href="#${item.id}">${item.text}</a></li>`;
     });
 
     tocHTML += '</ul>';

@@ -160,11 +160,9 @@ pre {
     font-size: 50px;
 }
 
-/* Table of content  */
-#toc {
-    margin: 20px 0;
-    padding: 10px;
-    border: 1px solid #ccc;
+.TOCElement a{
+    text-decoration: none;
+    font-size: 15px;
 }
 
 #toc ul {
@@ -175,8 +173,6 @@ pre {
 #toc li {
     margin-bottom: 5px;
 }
-
-
 
 .toc-level-1 {
     font-weight: bold;
