@@ -1,5 +1,14 @@
-/Lien autres docs.md
-Test/Test fichier/Test Fichier numéros 2/Test numéro 27.md
-Test/Test1.md
-Test/Test2.md
-/Hello World !.md
+Algorithmie/Diviser pour régner.md
+/Conversion des Unités de Poids Informatique.md
+/Coût d'un alogrithme.md
+/NSI - Index.md
+Programmation/Bonnes pratiques programmation.md
+Programmation/Variables immuables.md
+Programmation/Variables mutables.md
+Réseaux/Protocole OSPF.md
+Réseaux/Protocole RIP.md
+Réseaux/Protocoles internet.md
+Réseaux/Réseaux.md
+Réseaux/Utilisation des masques de sous-réseaux.md
+Structure de donnée/Arbre Binaire.md
+Structure de donnée/Liste.md
