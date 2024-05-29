@@ -82,8 +82,11 @@ function detectMarkdownExpression(markdownText){
         // Convert internal links:
         .replace(/\[\[(.*?)\]\]/g, (match, p1) => {
             const notePath = notePaths[p1.trim()];
-            console.log(notePath);
-            return `<a href="#" onclick="fetchMarkdownFiles('${notePath}')">${p1.trim()}</a>`;
+            if (notePath) {
+                return `<a href="#" onclick="fetchMarkdownFiles('${notePath}')">${p1.trim()}</a>`;
+            } else {
+                return `<a href="#" class="notFound">${p1.trim()}</a>`;
+            }
         }); // Convert internal links
 }
 
