@@ -11,7 +11,7 @@ function fetchMarkdownFiles(filename) {
         .then(markdownText => {
             // Convert Markdown to HTML
             const htmlOutput = formatMarkdownToHTML(markdownText, filename);
-            console.log(htmlOutput);
+            //console.log(htmlOutput);
             markdown_content = document.getElementById('markdownContent');
             
             // Display the HTML output
@@ -22,18 +22,24 @@ function fetchMarkdownFiles(filename) {
             hljs.highlightAll();
             document.title = filename.slice(0, -3);
 
+            generateTableOfContents();
+
         })
         .catch(error => {
             console.error('There was a problem fetching the Markdown file:', filename, error);
         });
 }
 
+let TOCList = [];//table of content header list
 function formatHeader(line){
     i = 0;
     while (line[i] == "#"){
         i+=1;
     }
-    return `<h${i}>${line.slice(i)}</h${i}>`;
+    const headerText = line.slice(i).trim();
+    const headerId = headerText.toLowerCase().replace(/\s+/g, '-'); // Generate an id for the header
+    TOCList.push({ level: i, text: headerText, id: headerId });
+    return `<h${i} id="${headerId}">${headerText}</h${i}>`;
 }
 
 
@@ -163,7 +169,7 @@ function formatSpace(text) {
 
 // Initial load
 loadNotePaths();
-fetchMarkdownFiles('Hello World !.md'); // Load a default Markdown file
+// fetchMarkdownFiles('Hello World !.md'); // Load a default Markdown file
 
 // Explorer section
 document.addEventListener('DOMContentLoaded', () => {
@@ -238,4 +244,17 @@ function renderFileTree(tree, parentElement, currentPath = '') {
 
         parentElement.appendChild(li);
     });
+}
+
+//Table of contents
+function generateTableOfContents(content) {
+    const tocContainer = document.getElementById('tableOfContents'); // Assurez-vous d'avoir un conteneur avec cet ID dans votre HTML
+    let tocHTML = '<ul>';
+
+    TOCList.forEach(item => {
+        tocHTML += `<li class="toc-level-${item.level}"><a href="#${item.id}">${item.text}</a></li>`;
+    });
+
+    tocHTML += '</ul>';
+    tocContainer.innerHTML = tocHTML;
 }

@@ -159,3 +159,43 @@ pre {
     text-align: center;
     font-size: 50px;
 }
+
+/* Table of content  */
+#toc {
+    margin: 20px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+#toc ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#toc li {
+    margin-bottom: 5px;
+}
+
+
+
+.toc-level-1 {
+    font-weight: bold;
+}
+
+.toc-level-2 {
+    margin-left: 10px;
+}
+
+.toc-level-3 {
+    margin-left: 20px;
+}
+
+.toc-level-4 {
+    margin-left: 30px;
+}
+.toc-level-5 {
+    margin-left: 40px;
+}
+.toc-level-6 {
+    margin-left: 50px;
+}
