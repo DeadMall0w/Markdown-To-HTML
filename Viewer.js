@@ -114,6 +114,7 @@ function formatSpace(text) {
             }
             currentSection = 1; //* Set the current section to text
         } else if (line.trim() == '') {
+            htmlOutput += closeParagraph(currentSection);  //* Close section according to last section
             currentSection = 0;
         } else {
             htmlOutput += line;

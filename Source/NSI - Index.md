@@ -18,7 +18,6 @@
 # Graph
 - [ ] [[Graph]]
 - [ ] [[Algorithme de Dijkstra]]
-
 # Algorithmie
 ## Recherche
 - [ ] [[Recherche textuelle]]
