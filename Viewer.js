@@ -1,5 +1,6 @@
 // Function to fetch and display Markdown content
 function fetchMarkdownFiles(filename) {
+    console.log(filename);
     fetch(`Source/${filename}`)
         .then(response => {
             if (!response.ok) {
@@ -23,7 +24,7 @@ function fetchMarkdownFiles(filename) {
 
         })
         .catch(error => {
-            console.error('There was a problem fetching the Markdown file:', error);
+            console.error('There was a problem fetching the Markdown file:', filename, error);
         });
 }
 
@@ -44,6 +45,30 @@ function formatMarkdownToHTML(markdownText, title){
     return htmlText;
 }
 
+const notePaths = {};
+
+        function loadNotePaths() {
+            fetch('files_parsed.txt')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    const lines = data.split('\n');
+                    lines.forEach(line => {
+                        if (line.trim()) {
+                            const parts = line.split('/');
+                            const noteName = parts[parts.length - 1].replace('.md', '').trim();
+                            notePaths[noteName] = line.trim();
+                        }
+                    });
+                    console.log(notePaths); // Debugging purpose
+                })
+                .catch(error => console.error('Error loading note paths:', error));
+        }
+
 function detectMarkdownExpression(markdownText){
     return markdownText
         .replace(/\n/g, '<br>') // Replace line breaks with <br> tags
@@ -53,7 +78,13 @@ function detectMarkdownExpression(markdownText){
         // Convert italic text:
         .replace(/\*(.*?)\*/g, '<em>$1</em>')
         .replace(/\$\$(.*?)\$\$/g, '<p>\\[$1\\]</p>')
-        .replace(/\$(.*?)\$/g, (match, p1) => `\\(${p1}\\)`);
+        .replace(/\$(.*?)\$/g, (match, p1) => `\\(${p1}\\)`)
+        // Convert internal links:
+        .replace(/\[\[(.*?)\]\]/g, (match, p1) => {
+            const notePath = notePaths[p1.trim()];
+            console.log(notePath);
+            return `<a href="#" onclick="fetchMarkdownFiles('${notePath}')">${p1.trim()}</a>`;
+        }); // Convert internal links
 }
 
 
@@ -128,6 +159,7 @@ function formatSpace(text) {
 }
 
 // Initial load
+loadNotePaths();
 fetchMarkdownFiles('Hello World !.md'); // Load a default Markdown file
 
 // Explorer section
