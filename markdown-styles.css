@@ -13,10 +13,11 @@ body {
 
 
 #fileExplorer {
-    width: 15%;
+    width: 22%;
     padding: 0px;
     overflow-y: auto;
     border-right: 1px solid #3d3d3d;
+    margin:0px
 }
 
 #fileExplorer ul{
@@ -38,6 +39,17 @@ body {
 
 #tableOfContents ul{
     padding: 0px;
+}
+
+.file{
+    color: #e26bfa;
+    text-decoration-line: underline;
+}
+
+.file:hover{
+    color: #fab26b;
+    font-style:italic;
+    cursor: pointer;
 }
 
 h1 {

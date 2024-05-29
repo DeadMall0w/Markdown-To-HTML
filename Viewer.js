@@ -197,6 +197,7 @@ function renderFileTree(tree, parentElement, currentPath = '') {
         } else {
             const filePath = `${currentPath}${key}`; // Construire le chemin complet du fichier
             li.onclick = () => fetchMarkdownFiles(filePath);
+            li.classList.add('file');
         }
 
         parentElement.appendChild(li);
