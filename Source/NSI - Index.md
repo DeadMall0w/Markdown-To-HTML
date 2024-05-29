@@ -58,8 +58,8 @@
 
 # Architecture
 - [ ] [[Architecture d'un pc]]
-	- [ ] [[Modèle architecture séquentielle]]
-	- [ ] [[Portes logiques]]
+- [ ] [[Modèle architecture séquentielle]]
+- [ ] [[Portes logiques]]
 - [ ] [[Gestion des processus]]
 - [ ] [[Architecture Materiel]]
 - [ ] [[Systeme d'exploitation]]

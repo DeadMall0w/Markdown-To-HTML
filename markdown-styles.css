@@ -43,7 +43,7 @@ body {
 
 .file{
     color: #e26bfa;
-    text-decoration-line: underline;
+    text-decoration-line: none;
 }
 
 .file:hover{
@@ -54,6 +54,25 @@ body {
 
 .notFound{
     color:red;
+    text-decoration-line: none;
+}
+
+.notFound:hover{
+    color:red;
+    text-decoration-line: none;
+    cursor: text;
+}
+
+a{
+    text-decoration-line: none;
+    color: rgb(234, 152, 255);
+    font-style: italic;
+}
+a:hover{
+    color: #fab26b;
+    font-style:italic;
+    cursor: pointer;
+    text-decoration-line: underline;
 }
 
 h1 {
@@ -120,11 +139,6 @@ ul {
 li {
     font-size: 16px;
     line-height: 1.1;
-}
-
-a {
-    color: rgb(234, 152, 255);
-    font-style: italic;
 }
 
 pre {
