@@ -41,6 +41,13 @@ body {
     padding: 0px;
 }
 
+.resizable {
+    width: 300px; /* Largeur initiale */
+    resize: horizontal; /* Permet le redimensionnement */
+    overflow: auto; /* Ajoute des barres de défilement si le contenu dépasse */
+    border: 1px solid #ccc; /* Ajoute une bordure */
+}
+
 .file{
     color: #e26bfa;
     text-decoration-line: none;
