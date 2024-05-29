@@ -1,5 +1,4 @@
 Algorithmie/Diviser pour régner.md
-/Conversion des Unités de Poids Informatique.md
 /Coût d'un alogrithme.md
 /NSI - Index.md
 Programmation/Bonnes pratiques programmation.md
@@ -12,3 +11,5 @@ Réseaux/Réseaux.md
 Réseaux/Utilisation des masques de sous-réseaux.md
 Structure de donnée/Arbre Binaire.md
 Structure de donnée/Liste.md
+Structure de donnée/Dictionnaire.md
+Binaire/Conversion des Unités de Poids Informatique.md
