@@ -9,10 +9,13 @@ function fetchMarkdownFiles(filename) {
             return response.text();
         })
         .then(markdownText => {
+            // Reset Table of content list
+            TOCList = [];
             // Convert Markdown to HTML
             const htmlOutput = formatMarkdownToHTML(markdownText, filename);
             markdown_content = document.getElementById('markdownContent');
             
+            console.log(markdown_content);
             // Display the HTML output
             markdown_content.innerHTML = htmlOutput;
         
@@ -20,7 +23,6 @@ function fetchMarkdownFiles(filename) {
 
             hljs.highlightAll();
             document.title = filename.slice(0, -3);
-
             generateTableOfContents();
         })
         .catch(error => {
@@ -29,7 +31,6 @@ function fetchMarkdownFiles(filename) {
 }
 
 let TOCList = [];//table of content header list
-
 function formatHeader(line) {
     let i = 0;
     while (line[i] == "#") {
@@ -60,7 +61,7 @@ function convertAllMarkdownTableToHTML(text) {
                 convertedText += convertMarkdownTableToHTML(tableBlock);
                 tableBlock = '';
             }
-            convertedText += line + '\n';
+            convertedText += '\n'+line + '\n';
         }
     });
 
@@ -105,10 +106,10 @@ function convertMarkdownTableToHTML(markdown) {
 }
 
 function formatMarkdownToHTML(markdownText, title) {
-    let htmlText = `<h1 id="Title">${title.slice(0, -3)}</h1>`;
-    htmlText += convertAllMarkdownTableToHTML(markdownText);
-    htmlText = detectMarkdownExpression(htmlText);
-    htmlText = formatSpace(htmlText);
+    let htmlText = `<h1 id="Title">${title.slice(0, -3)}</h1><br>`;
+    htmlText += convertAllMarkdownTableToHTML(markdownText); // First convert tables
+    htmlText = detectMarkdownExpression(htmlText); // Then detect other markdown expressions
+    htmlText = formatSpace(htmlText); // Finally format spaces and headers
     console.log(htmlText);
     return htmlText;
 }
@@ -170,49 +171,56 @@ function closeParagraph(index) {
 // Function to format space, create <p> for text, <h1> for title, ect...
 function formatSpace(text) {
     const lines = text.split('<br>');
-
+    
     let htmlOutput = '';
+    
     let currentSection = 0; // Variable pour suivre le dernier type de ligne traitée (0: autre, 1: paragraphe, 2:list, 3:code bloc)
-
+    
     for (const line of lines) {
-        if (currentSection == 3) {
-            if (line.startsWith('```')) {
-                currentSection = 0; // end of code block
-                htmlOutput += `</code></pre>`;
-            } else {
-                htmlOutput += line + "<br>";
+        console.log(line);
+        if (currentSection == 3){
+            if (line.startsWith('```')){
+                currentSection = 0; //* end of code block
+                htmlOutput += `</pre></code>`
+            }else{
+                htmlOutput += line+"<br>";
             }
-        } else if (line.startsWith('#')) {
-            htmlOutput += closeParagraph(currentSection); // Close section according to last section
-            htmlOutput += formatHeader(line); // Create header lvl
-            currentSection = 0; // Set current section to title
-        } else if (line.startsWith('```')) {
-            currentSection = 3; // Set current section to code block
+        }
+        else if (line.startsWith('#')) { //* Title 
+            htmlOutput += closeParagraph(currentSection);  //* Close section according to last section
+            htmlOutput += formatHeader(line); //* Create header lvl
+            currentSection = 0; //* Set current section to title
+        // } else if (line.startsWith('|')) { //* Table
+        //     htmlOutput += closeParagraph(currentSection);  //* Close section according to last section
+        //     htmlOutput += convertMarkdownTableToHTML(line); //* Convert markdown table to HTML
+        //     currentSection = 0; //* Set current section to table
+        } else if(line.startsWith('```')){
+            currentSection = 3; //* Set current section to code bloc
             htmlOutput += `<pre><code class="language-${line.slice(3)}">`;
         } else if (line.startsWith('- ')) {
-            if (currentSection == 2) { // It's already a list section
-                htmlOutput += `<li>${line.slice(2)}</li>`; // Add the line and add <br>
-            } else { // Create a new text section
-                htmlOutput += closeParagraph(currentSection); // Close section according to last section
+            if (currentSection == 2) { //* It's already a list section
+                htmlOutput += `<li>${line.slice(2)}</li>`;//* Add the line and add <br>
+            } else { //* Create a new text section
+                htmlOutput += closeParagraph(currentSection);  //* Close section according to last section
                 htmlOutput += `<ul><li>${line.slice(2)}</li>`;
             }
-            currentSection = 2; // Set the current section to text
-        } else if (line.trim() !== '') { // It's a <p>
-            if (currentSection == 1) { // It's already a text section
-                htmlOutput += `${line}<br>`; // Add the line and add <br>
-            } else { // Create a new text section
-                htmlOutput += closeParagraph(currentSection); // Close section according to last section
+            currentSection = 2; //* Set the current section to text 
+        } else if (line.trim() !== '') { //* It's a <p>
+            if (currentSection == 1) { //* It's already a text section
+                htmlOutput += `${line}<br>`;//* Add the line and add <br>
+            } else { //* Create a new text section
+                htmlOutput += closeParagraph(currentSection);  //* Close section according to last section
                 htmlOutput += `<p>${line}`;
             }
-            currentSection = 1; // Set the current section to text
+            currentSection = 1; //* Set the current section to text
         } else if (line.trim() == '') {
-            htmlOutput += closeParagraph(currentSection); // Close section according to last section
+            htmlOutput += closeParagraph(currentSection);  //* Close section according to last section
             currentSection = 0;
         } else {
             htmlOutput += line;
         }
     }
-
+    
     if (currentSection == 1) {
         htmlOutput += "</p>";
     }
@@ -299,7 +307,7 @@ function renderFileTree(tree, parentElement, currentPath = '') {
 
 // Table of contents
 function generateTableOfContents() {
-    const tocContainer = document.getElementById('tableOfContents'); // Assurez-vous d'avoir un conteneur avec cet ID dans votre HTML
+    const tocContainer = document.getElementById('tableOfContents');
     let tocHTML = '<h2>Table of Contents</h2><ul>';
 
     TOCList.forEach(item => {
