@@ -195,3 +195,32 @@ pre {
 .toc-level-6 {
     margin-left: 50px;
 }
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 18px;
+    text-align: left;
+  }
+  
+  table thead th {
+    background-color: #000000;
+    color: #ffffff;
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+  
+  table tbody td {
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+  
+  table tbody tr:nth-child(even) {
+    background-color: #0f0f0f;
+  }
+  
+  table tbody tr:hover {
+    background-color: #1b1219;
+  }
