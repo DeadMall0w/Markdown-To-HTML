@@ -185,7 +185,7 @@ function formatSpace(text) {
                 currentSection = 0; //* end of code block
                 htmlOutput += `</pre></code>`
             }else{
-                htmlOutput += line+"&#10";
+                htmlOutput += line+"&#10"; // becase <br> does not work in code block
             }
         }
         else if (line.startsWith('#')) { //* Title 
