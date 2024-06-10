@@ -14,6 +14,7 @@ function fetchMarkdownFiles(filename) {
             TOCList = [];
             // Convert Markdown to HTML
             const htmlOutput = formatMarkdownToHTML(markdownText, filename);
+            console.log(htmlOutput);
             markdown_content = document.getElementById('markdownContent');
             
             console.log(markdown_content);
