@@ -22,39 +22,39 @@ Cette instrucion permet de définir quelles sont les clé choisit à afficher.
 
 - Pour selectionner toutes les données d'une  base de donnée
   
-  ```sql
-  SELECT * FROM ville;
-  ```
+```sql
+SELECT * FROM ville;
+```
 
 - Pour selectionner certaines clés données d'une base de donnée
   
-  ```sql
-  SELECT nom, code FROM ville;
-  ```
+```sql
+SELECT nom, code FROM ville;
+```
 
 - Pour renomer une clé d'une base de donnée
   
-  ```sql
-  SELECT nom AS NOM_VILLE FROM ville;
-  ```
+```sql
+ SELECT nom AS NOM_VILLE FROM ville;
+```
 
 - Pour éliminer les doublons
   
-  ```sql
-  SELECT DISTINCT code FROM ville;
-  ```
+```sql
+SELECT DISTINCT code FROM ville;
+```
 
 - Pour trier les éléments 
   
-  ```sql
-  SELECT code FROM ville ORDER BY code;
-  ```
+```sql
+SELECT code FROM ville ORDER BY code;
+```
 
 - Pour inverser le sens de tri, on peut utiliser 'DESC'
   
-  ```sql
-  SELECT code FROM ville ORDER BY code DESC;
-  ```
+```sql
+SELECT code FROM ville ORDER BY code DESC;
+```
 
 ## L'instruction 'WHERE'
 
@@ -99,30 +99,29 @@ DELETE FROM ville WHERE code='62001';
 
 > Ces instructions seront sûrement donnée, si elle sont nécessaire à la réalisation de l'exercice lors du BAC. De ce fait, elles ne sont pas très importante mais les connaîtres est toujours un plus.
 
-- Pour avoir la plus petite ou la plus grande valeur
+- Pour avoir a plus petite ou la plus grande valeur
   
-  ```sql
-  SELECT MIN(code) AS MIN FROM ville;
-  SELECT MAX(code) AS MAX FROM ville;
-  ```
+```sql
+SELECT MIN(code) AS MIN FROM ville;
+SELECT MAX(code) AS MAX FROM ville;
+```
 
 - Pour avoir le nombre de ligne du tableau
   
-  ```sql
-  SELECT COUNT(*) AS NbLignes FROM ville;
-  ```
+```sql
+SELECT COUNT(*) AS NbLignes FROM ville;
+```
 
 - Pour avoir la somme
   
-  ```sql
-  SELECT SUM(effectif) AS Somme_effectif FROM ville;
-  ```
+```sql
+SELECT SUM(effectif) AS Somme_effectif FROM ville;
+```
 
 - Pour avoir la moyenne
 
-- ```sql
-  SELECT AVG(effectif) AS moyenne FROM evolution;
-  ```
+```sql
+SELECT AVG(effectif) AS moyenne FROM evolution;```
   
   # Croisement de plusieurs tables
   
@@ -130,26 +129,12 @@ DELETE FROM ville WHERE code='62001';
   
   Pour joindre 2 table on peut utiliser l'instruction 'JOIN'
   
-  ```sql
-  SELECT ville.nom, evolution.effectif FROM ville JOIN evolution ON ville.code = evolution.code;
-  ```
+```sql
+SELECT ville.nom, evolution.effectif FROM ville JOIN evolution ON ville.code = evolution.code;
+```
   
   Les autres instructions fonctionnent aussi :
   
-  ```sql
-  SELECT ville.nom, evolution.effectif FROM ville JOIN evolution ON ville.code = evolution.code WHERE evolution.effectif > 2000 ORDER BY evolution.effectif;
-  ```
-
-# Devoirs
-
-- frc 
-
-- maths
-
-# en cours
-
-- programme NSI
-
-# Fait
-
-- x
+```sql
+SELECT ville.nom, evolution.effectif FROM ville JOIN evolution ON ville.code = evolution.code WHERE evolution.effectif > 2000 ORDER BY evolution.effectif;
+```
