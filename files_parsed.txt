@@ -1,21 +1,21 @@
-Algorithmie/Source/Algorithmie/Diviser pour régner.md
-Binaire/Source/Binaire/Conversion des Unités de Poids Informatique.md
-/Source/binaire.md
-/Source/boucles.md
-/Source/Coût d'un alogrithme.md
-/Source/langages du web.md
-/Source/NSI - Index.md
-/Source/pile et file.md
-Programmation/Source/Programmation/Bonnes pratiques programmation.md
-Programmation/Source/Programmation/Variables immuables.md
-Programmation/Source/Programmation/Variables mutables.md
-Réseaux/Source/Réseaux/Protocole OSPF.md
-Réseaux/Source/Réseaux/Protocole RIP.md
-Réseaux/Source/Réseaux/Protocoles internet.md
-Réseaux/Source/Réseaux/Réseaux.md
-Réseaux/Source/Réseaux/Utilisation des masques de sous-réseaux.md
-/Source/SQL.md
-Structure de donnée/Source/Structure de donnée/Arbre Binaire.md
-Structure de donnée/Source/Structure de donnée/Dictionnaire.md
-Structure de donnée/Source/Structure de donnée/Liste.md
-/Source/variables.md
+Algorithmie/Algorithmie/Diviser pour régner.md
+Binaire/Binaire/Conversion des Unités de Poids Informatique.md
+/binaire.md
+/boucles.md
+/Coût d'un alogrithme.md
+/langages du web.md
+/NSI - Index.md
+/pile et file.md
+Programmation/Programmation/Bonnes pratiques programmation.md
+Programmation/Programmation/Variables immuables.md
+Programmation/Programmation/Variables mutables.md
+Réseaux/Réseaux/Protocole OSPF.md
+Réseaux/Réseaux/Protocole RIP.md
+Réseaux/Réseaux/Protocoles internet.md
+Réseaux/Réseaux/Réseaux.md
+Réseaux/Réseaux/Utilisation des masques de sous-réseaux.md
+/SQL.md
+Structure de donnée/Structure de donnée/Arbre Binaire.md
+Structure de donnée/Structure de donnée/Dictionnaire.md
+Structure de donnée/Structure de donnée/Liste.md
+/variables.md
