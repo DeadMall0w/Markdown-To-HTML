@@ -1,8 +1,10 @@
 import os
 
-#source_directory = "E:/git/Markdown-To-HTML/Source"
-source_directory = "/home/raphael/Documents/GitHub/Markdown-To-HTML/Source"
-destination_file = "/home/raphael/Documents/GitHub/Markdown-To-HTML/files_parsed.txt"
+source_directory = "E:/git/Markdown-To-HTML/Source"
+destination_file = "E:/git/Markdown-To-HTML/files_parsed.txt"
+
+# source_directory = "/home/raphael/Documents/GitHub/Markdown-To-HTML/Source"
+# destination_file = "/home/raphael/Documents/GitHub/Markdown-To-HTML/files_parsed.txt"
 s = ""
 def walf_folder(dossier, relative_path):
     global s
